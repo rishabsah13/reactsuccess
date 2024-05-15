@@ -1,76 +1,156 @@
 
+// import { BrowserRouter as Router, Route, Routes, Link, useNavigate, } from 'react-router-dom';
+// import './App.css';
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+
+
+// const Home = () => {
+
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [responseMessage, setResponseMessage] = useState('');
+//   const [responseColor, setResponseColor] = useState('');
+//   const [id, setId] = useState('');
+//   const [contactId, setContactId] = useState('');
+//   const [finalId, setFinalId] = useState('')
+//   const [statusCode, setStatusCode] = useState("")
+//   const navigate = useNavigate()
+
+
+//   useEffect(() => {
+
+//     const url = new URL('https://reactsuccess.vercel.app/?id=1231&contactId=12312');
+//     const urlId = url.searchParams.get('id');
+//     const urlContactId = url.searchParams.get('contactId');
+//     console.log(urlId, urlContactId)
+//     if (urlId && urlContactId) {
+//       setId(urlId.toString());
+//       setContactId(urlContactId.toString());
+//     }
+//   }, []);
+
+//   const handleSuccessClick = async () => {
+//     setIsLoading(true);
+//     try {
+//       const url = 'https://apim.quickwork.co/UATStaging/DMIAPP/v2/stub';
+//       const response = await axios.post(url, {
+//         Id: "a4uBg0000002u69",
+//         contactId: "003Bg000005Fbh7",
+//         leadId: "a2kBg000002y5IDIAY",
+//         type: 'KYC'
+//       }, {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'apiKey': 'RNP5g9vKT9ffhdS06XTqaqvR5MIB22gO'
+//         }
+//       });
+
+//       if (response.status !== 200) {
+//         throw new Error('Network response was not ok');
+//       }
+
+//       if (response.data && response.data.status_code === '400') {
+        
+//         setResponseMessage('Failure');
+//         setResponseColor('red');
+//       } else {
+
+//         console.log(response.data, "####")
+//         setFinalId(response.data.Id)
+//         setStatusCode(response.data.status_code)
+//         navigate("/success")
+//         setResponseMessage(`Success: id=${id}, contactId=${contactId}`);
+//         setResponseColor('green');
+//       }
+//       setIsLoading(false);
+//       setError(null);
+//     } catch (error) {
+//       console.error('There was a problem with the fetch operation:', error);
+//       setError(error);
+//       setIsLoading(false);
+
+//       // Check if either Id or type field is empty
+//       if (error.message.includes('id') || error.message.includes('type')) {
+//         setResponseMessage('Failure: Id or type field is empty');
+//       } else {
+//         setResponseMessage('Failure');
+//       }
+//       setResponseColor('red');
+//     }
+//   };
+
+//   const handleFailureClick = () => {
+//     setResponseMessage('Failure');
+//     setResponseColor('red');
+//   };
+
+//   return (
+//     <div className="centered">
+//       <h1>DMI Finance</h1>
+//       <div className="button-container">
+//         <button className="button1" onClick={handleSuccessClick} disabled={isLoading}>
+//           Success
+//         </button>
+//         <button className="button2" onClick={handleFailureClick} disabled={isLoading}>
+//           Failure
+//         </button>
+//       </div>
+//       <p style={{ color: responseColor }}>{responseMessage}</p>
+//       {error && (
+//         <p>{`Error: ${error.message}`}</p>
+//       )}
+//     </div>
+//   );
+// };
+
+
+// const SuccessPage = ({ id, contactId }) => {
+//   return (
+//     <div>
+//       <h1>Success Page</h1>
+//       <p>Success: id={id}, contactId={contactId}</p>
+//     </div>
+//   );
+// };
+// const FailurePage = () => {
+//   return <h2>Failure Page</h2>;
+// };
+
+// const App = () => {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/success" element={<SuccessPage />} />
+//         <Route path="/failure" element={<FailurePage />} />
+//       </Routes>
+//     </Router>
+//   );
+// };
+
+// export default App;
+
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import './App.css'; // Import CSS file for styling
-import React, { useState } from 'react';
-import axios from 'axios';
+import './App.css';
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [responseMessage, setResponseMessage] = useState('');
-  const [responseColor, setResponseColor] = useState('');
-
-  const handleClick = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch('https://apim.quickwork.co/UATStaging/DMIAPP/v2/stub', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apiKey': 'RNP5g9vKT9ffhdS06XTqaqvR5MIB22gO'
-        },
-        body: JSON.stringify({
-          Id: '',
-          contactId: '',
-          type: ''
-        })
-      });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-  
-      const data = await response.json();
-      console.log(data, "#######");
-  
-      if (data && data.status_code === '400') {
-        setResponseMessage('Failure');
-        setResponseColor('red');
-      } else {
-        setResponseMessage('Success');
-        setResponseColor('green');
-      }
-  
-      setIsLoading(false);
-      setError(null);
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-      setError(error);
-      setIsLoading(false);
-      
-      // Check if either Id or type field is empty
-      if (error.message.includes('Id') || error.message.includes('type')) {
-        setResponseMessage('Failure: Id or type field is empty');
-      } else {
-        setResponseMessage('Failure');
-      }
-      setResponseColor('red');
-    }
+  const handleClick = () => {
+    // Send a message to the parent window indicating that the Success button has been clicked
+    window.parent.postMessage(JSON.stringify({ action: 'success' }), '*');
+    console.log("button pressed")
   };
-
 
   return (
     <div className="centered">
       <h1>DMI Finance</h1>
       <div className="button-container">
-        <button className="button1" onClick={handleClick} disabled={isLoading}>
-          Trigger
-        </button>
+        {/* Attach handleClick function to the onClick event of the Success button */}
+        <button className="button1" onClick={handleClick}>Success</button>
+        <div className="button-gap" />
+        <Link to="/failure" className="button2">Failure</Link>
       </div>
-      <p style={{ color: responseColor }}>{responseMessage}</p>
-      {error && (
-        <p>{`Error: ${error.message}`}</p>
-      )}
     </div>
   );
 };
@@ -96,3 +176,4 @@ const App = () => {
 };
 
 export default App;
+

@@ -1,6 +1,6 @@
 
 // import { BrowserRouter as Router, Route, Routes, Link, useNavigate, } from 'react-router-dom';
-// import './App.css';
+import './App.css';
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 
@@ -51,7 +51,7 @@
 //       }
 
 //       if (response.data && response.data.status_code === '400') {
-        
+
 //         setResponseMessage('Failure');
 //         setResponseColor('red');
 //       } else {
@@ -131,9 +131,9 @@
 
 // export default App;
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import './App.css'; // Import CSS file for styling
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Home = () => {
   return (
@@ -149,16 +149,67 @@ const Home = () => {
 };
 
 const SuccessPage = () => {
-  React.useEffect(() => {
-    // Send a message to the React Native WebView when the component mounts
-    window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify({ action: 'success' }));
-  }, []);
+  const navigate = useNavigate();
+  const [Id, setId] = useState("");
+  const [statusCode, setStatusCode] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  return <h2>Success Page</h2>;
+  useEffect(() => {
+    const apiUrl = 'https://apim.quickwork.co/UATStaging/DMIAPP/v2/stub';
+    const apiKey = 'RNP5g9vKT9ffhdS06XTqaqvR5MIB22gO';
+    
+    const requestBody = {
+      Id:"a4uBg0000002u69",
+      contactId:"003Bg000005Fbh7",
+      leadId:"a2kBg000002y5IDIAY",
+      type: "KYC"
+    };
+
+    const postData = async () => {
+      try {
+        const response = await axios.post(apiUrl, requestBody, {
+          headers: {
+            'Content-Type': 'application/json',
+            'apiKey': apiKey
+          }
+        });
+
+        console.log('Success:', response.data);
+        setId(response.data.Id);
+        setStatusCode(response.data.status_code);
+
+        // Send a message to the React Native WebView when the API call succeeds
+        // if (window.ReactNativeWebView) {
+        //   window.ReactNativeWebView.postMessage(JSON.stringify({ action: 'success' }));
+        // }
+
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    postData();
+  }, [navigate]);
+
+  return (
+    <>
+      <h2>Success Page</h2>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          <div>Id: {Id}</div>
+          <div>Status Code: {statusCode}</div>
+        </div>
+      )}
+    </>
+  );
 };
 
 const FailurePage = () => {
-  return <h2>Failure Page</h2>;
+  return <h2>Failure</h2>;
 };
 
 const App = () => {

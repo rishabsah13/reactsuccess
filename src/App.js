@@ -133,21 +133,14 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import './App.css';
+import './App.css'; // Import CSS file for styling
 
 const Home = () => {
-  const handleClick = () => {
-    // Send a message to the parent window indicating that the Success button has been clicked
-    window.parent.postMessage(JSON.stringify({ action: 'success' }), '*');
-    console.log("button pressed")
-  };
-
   return (
     <div className="centered">
       <h1>DMI Finance</h1>
       <div className="button-container">
-        {/* Attach handleClick function to the onClick event of the Success button */}
-        <button className="button1" onClick={handleClick}>Success</button>
+        <Link to="/success" className="button1">Success</Link>
         <div className="button-gap" />
         <Link to="/failure" className="button2">Failure</Link>
       </div>
@@ -156,6 +149,11 @@ const Home = () => {
 };
 
 const SuccessPage = () => {
+  React.useEffect(() => {
+    // Send a message to the React Native WebView when the component mounts
+    window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify({ action: 'success' }));
+  }, []);
+
   return <h2>Success Page</h2>;
 };
 
@@ -176,4 +174,3 @@ const App = () => {
 };
 
 export default App;
-

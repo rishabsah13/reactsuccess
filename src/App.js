@@ -63,13 +63,13 @@ const SuccessPage = () => {
 
   return (
     <>
-      <h2>Success Page</h2>
+      <h2 style={{marginLeft:20}}>Success Page</h2>
       {isLoading ? (
-        <div>Loading...</div>
+        <div style={{marginLeft:20}}> Loading...</div>
       ) : (
         <div>
-          <div>Id: {Id}</div>
-          <div>Status Code: {statusCode}</div>
+          <div style={{marginLeft:20}}>Id: {Id}</div>
+          <div style={{marginLeft:20}}>Status Code: {statusCode}</div>
         </div>
       )}
     </>
@@ -77,7 +77,7 @@ const SuccessPage = () => {
 };
 
 const FailurePage = () => {
-  return <h2>Failure</h2>;
+  return <h2 style={{marginLeft:20}}>Failure</h2>;
 };
 
 const App = () => {

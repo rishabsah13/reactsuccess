@@ -7,34 +7,54 @@
 
 
 
-  .centered {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Adjust the height as needed */
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .button-gap {
-    width: 20px; /* Adjust the gap size as needed */
-  }
-  
-  .button1 {
-    padding: 10px 20px; /* Adjust the padding to increase button size */
-    font-size: 18px; 
-    background-color:lightgreen
-  }
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  /* Adjust the height as needed */
+}
 
-  .button2 {
-    padding: 10px 20px; /* Adjust the padding to increase button size */
-    font-size: 18px; 
-    background-color: red
-  }
-  
-  
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-gap {
+  width: 20px;
+  /* Adjust the gap size as needed */
+}
+
+.button1 {
+  padding: 10px 20px;
+  /* Adjust the padding to increase button size */
+  font-size: 18px;
+  background-color: lightgreen
+}
+
+.button2 {
+  padding: 10px 20px;
+  /* Adjust the padding to increase button size */
+  font-size: 18px;
+  background-color: red
+}
+
+.centered {
+  text-align: center;
+}
+
+.page-content {
+  margin-left: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-gap {
+  width: 10px;
+  /* Adjust as needed */
+}
